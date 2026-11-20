@@ -1,0 +1,340 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Тест з психософії</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ECEFEA; --surface:#F7F8F5; --ink:#1E2A32; --muted:#5D6B70;
+  --line:#C5CEC9; --accent:#3F45A0; --accent-soft:#DADCF2; --gold:#B8862A;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#151A1E; --surface:#1D2429; --ink:#E4E8E3; --muted:#9AA6A9;
+    --line:#34403F; --accent:#A3A8F2; --accent-soft:#2A2E52; --gold:#E0B45A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#151A1E; --surface:#1D2429; --ink:#E4E8E3; --muted:#9AA6A9;
+  --line:#34403F; --accent:#A3A8F2; --accent-soft:#2A2E52; --gold:#E0B45A;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Commissioner",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:17px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+main{max-width:760px; margin:0 auto; padding:40px 22px 64px}
+h1{font-weight:300; font-size:clamp(2rem,6vw,3.1rem); line-height:1.08; letter-spacing:-.02em; margin:0 0 18px}
+h2{font-weight:500; font-size:1.5rem; line-height:1.2; margin:34px 0 10px}
+h3{font-weight:600; font-size:1.05rem; margin:0 0 4px}
+p{margin:0 0 14px; max-width:62ch}
+.muted{color:var(--muted)}
+button{font:inherit; color:inherit; cursor:pointer}
+button:focus-visible{outline:3px solid var(--accent); outline-offset:3px}
+.primary{background:var(--accent); color:var(--surface); border:0; border-radius:999px; padding:14px 28px; font-weight:600; font-size:1rem}
+.ghost{background:none; border:1px solid var(--line); border-radius:999px; padding:10px 20px; font-size:.95rem}
+.row{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:22px}
+.hidden{display:none!important}
+
+/* function × position matrix — the signature element */
+.matrix{display:grid; grid-template-columns:auto repeat(4,1fr); gap:5px; max-width:360px; margin:0 auto; font-size:.85rem}
+.matrix .h{color:var(--muted); text-align:center; align-self:end; padding-bottom:2px}
+.matrix .fh{color:var(--muted); align-self:center; padding-right:6px; font-weight:500}
+.matrix .c{aspect-ratio:1; border:1px solid var(--line); border-radius:7px; background:var(--surface); position:relative; display:flex; align-items:center; justify-content:center; font-weight:600}
+.matrix .c i{position:absolute; inset:0; border-radius:6px; background:var(--accent); opacity:var(--o,0)}
+.matrix .c.on{border:2px solid var(--accent); color:var(--surface)}
+.matrix .c.on i{opacity:1}
+.matrix .c span{position:relative}
+.intro{display:grid; gap:30px; align-items:center}
+@media(min-width:660px){.intro{grid-template-columns:1.1fr 1fr}}
+
+/* quiz */
+.progress{display:flex; align-items:center; gap:14px; margin-bottom:34px; color:var(--muted); font-size:.92rem}
+.bar{flex:1; height:4px; background:var(--line); border-radius:2px; overflow:hidden}
+.bar>i{display:block; height:100%; background:var(--accent); width:0; transition:width .3s ease}
+.statement{font-size:clamp(1.35rem,4vw,1.85rem); font-weight:400; line-height:1.3; min-height:4.2em; margin:0 0 26px; max-width:30ch}
+.scale{display:grid; gap:8px}
+.scale button{display:flex; align-items:center; gap:14px; text-align:left; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:13px 16px; transition:border-color .15s, background .15s}
+.scale button:hover{border-color:var(--accent)}
+.scale button[aria-pressed="true"]{background:var(--accent-soft); border-color:var(--accent)}
+.dot{flex:none; width:calc(8px + var(--n)*3px); height:calc(8px + var(--n)*3px); border-radius:50%; background:var(--accent); opacity:calc(.25 + var(--n)*.15)}
+.key{margin-left:auto; color:var(--muted); font-size:.8rem}
+@media(hover:none){.key{display:none}}
+
+/* results */
+.result-head{display:grid; gap:28px; align-items:center}
+@media(min-width:660px){.result-head{grid-template-columns:1.1fr 1fr}}
+.code{font-size:clamp(4rem,15vw,6.8rem); font-weight:200; line-height:.9; color:var(--accent); letter-spacing:.06em}
+.positions{display:grid; gap:12px; margin-top:24px}
+.pos{display:grid; grid-template-columns:2.6em 1fr; gap:14px; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px}
+.pos .num{font-size:2rem; font-weight:200; color:var(--accent); line-height:1}
+.pos small{display:block; color:var(--muted); font-size:.85rem; margin-bottom:4px}
+.pos p{margin:0}
+.alts{list-style:none; padding:0; margin:8px 0}
+.alts li{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--line)}
+.alts b{font-weight:600; letter-spacing:.05em}
+.note{border-left:3px solid var(--gold); padding:4px 0 4px 16px; margin:26px 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+
+<section id="intro">
+  <div class="intro">
+    <div>
+      <h1>Тест з психософії</h1>
+      <p>64 твердження, приблизно 10–12 хвилин. Психософія О. Афанасьєва описує особистість через чотири функції — Волю, Логіку, Фізику й Емоцію — та їхній порядок від найсильнішої до найслабшої.</p>
+      <p class="muted">Оцінюйте, наскільки твердження описує вас у звичайному житті. Особливо чесно відповідайте на твердження про вразливі місця: саме вони найкраще визначають тип.</p>
+      <div class="row">
+        <button class="primary" id="start">Почати тест</button>
+        <button class="ghost hidden" id="resume">Продовжити з місця зупинки</button>
+      </div>
+    </div>
+    <div class="matrix" id="introMatrix" aria-hidden="true"></div>
+  </div>
+</section>
+
+<section id="quiz" class="hidden" aria-live="polite">
+  <div class="progress">
+    <span id="count"></span>
+    <div class="bar"><i id="barFill"></i></div>
+    <button class="ghost" id="back">Назад</button>
+  </div>
+  <p class="statement" id="statement"></p>
+  <div class="scale" id="scale"></div>
+</section>
+
+<section id="results" class="hidden">
+  <div class="result-head">
+    <div>
+      <div class="muted">Ваш найімовірніший тип</div>
+      <div class="code" id="rCode"></div>
+      <p id="rSummary" style="margin-top:14px"></p>
+    </div>
+    <div>
+      <div class="matrix" id="resultMatrix" role="img"></div>
+      <p class="muted" style="text-align:center;font-size:.85rem;margin-top:10px">Насиченість клітинки — ваші бали, рамка — визначений тип</p>
+    </div>
+  </div>
+  <div class="positions" id="positions"></div>
+  <div class="note" id="rNote"></div>
+  <h2>Найближчі альтернативи</h2>
+  <p class="muted">Відсоток показує, наскільки добре кожен порядок функцій відповідає вашим відповідям.</p>
+  <ul class="alts" id="alts"></ul>
+  <p class="muted">Психософія — популярна типологія, але не наукова психологічна методика. Результат варто перевіряти описами типів і самоспостереженням, особливо щодо третьої, найвразливішої функції.</p>
+  <div class="row"><button class="primary" id="restart">Пройти ще раз</button></div>
+</section>
+
+</main>
+<script>
+const F={V:"Воля",L:"Логіка",F:"Фізика",E:"Емоція"};
+const LETTER={V:"В",L:"Л",F:"Ф",E:"Е"};
+const FUNCS=["V","L","F","E"];
+const POS={
+ 1:"Сильна, результатна",
+ 2:"Сильна, процесна",
+ 3:"Слабка, вразлива",
+ 4:"Слабка, невибаглива"
+};
+
+// [function, position, statement]
+const Q=[
+["V",1,"Я ухвалюю рішення самостійно й не терплю, коли мені вказують."],
+["V",1,"Я знаю, чого хочу, і йду до цього, навіть якщо інші проти."],
+["V",1,"У питаннях, як має бути, мені дуже важко поступитися."],
+["V",1,"Якщо ціль поставлено, переконати мене відмовитися майже неможливо."],
+["V",2,"Я легко беру на себе керування, але зважаю на бажання інших."],
+["V",2,"Мені подобається домовлятися й шукати спільне рішення."],
+["V",2,"Я можу бути твердою людиною без тиску й поважаю чужу позицію."],
+["V",2,"Я охоче допомагаю іншим визначитися й підтримую їхні рішення."],
+["V",3,"Мене глибоко зачіпає, коли з моєю думкою не рахуються."],
+["V",3,"Мені важко відстояти себе, і потім я довго прокручую ситуацію в голові."],
+["V",3,"Я часто сумніваюся, чи маю право вимагати чогось для себе."],
+["V",3,"Тиск і наказовий тон мене дуже ранять."],
+["V",4,"Мені легко, коли рішення ухвалює хтось, кому я довіряю."],
+["V",4,"Боротьба за статус і першість мене мало цікавить."],
+["V",4,"Я спокійно приймаю правила й вказівки, якщо вони розумні."],
+["V",4,"Мені байдуже, хто головний, аби справа рухалась."],
+
+["L",1,"Я маю чітку картину світу, і мені важко прийняти іншу."],
+["L",1,"Я впевнено висловлюю думку й рідко сумніваюся у своїх висновках."],
+["L",1,"Мені не подобається, коли мої висновки ставлять під сумнів."],
+["L",1,"Я часто пояснюю іншим, як усе влаштовано насправді."],
+["L",2,"Мені цікаво обговорювати ідеї й розглядати різні точки зору."],
+["L",2,"Я легко пояснюю складне й радо ділюся знаннями."],
+["L",2,"Я охоче змінюю думку, якщо почую добрий аргумент."],
+["L",2,"Мені подобається сам процес міркувань і дискусії."],
+["L",3,"Мені дуже неприємно, коли мене вважають недостатньо розумною людиною."],
+["L",3,"Я боюся сказати дурницю й тому часто мовчу в обговоренні."],
+["L",3,"Я сумніваюся у своїх висновках, навіть коли вони правильні."],
+["L",3,"Мені важливо, щоб мою думку вислухали й сприйняли серйозно."],
+["L",4,"Теоретичні суперечки мені нецікаві: важливий практичний висновок."],
+["L",4,"Я легко довіряю думці фахівця й не перевіряю все самостійно."],
+["L",4,"Довгі пояснення мене втомлюють: скажіть коротко, що робити."],
+["L",4,"Мене не турбує, якщо я чогось не розумію в теорії."],
+
+["F",1,"Я впевнено почуваюся в побуті, грошах і матеріальних справах."],
+["F",1,"У мене тверді звички щодо їжі, комфорту й побуту, і я не люблю їх змінювати."],
+["F",1,"Я вмію заробляти й розпоряджатися ресурсами, і мені складно довірити це іншим."],
+["F",1,"Мене дратує, коли хтось робить по-своєму з моїми речами чи в моєму домі."],
+["F",2,"Я охоче допомагаю іншим із побутом, ремонтом чи практичними справами."],
+["F",2,"Мені подобається сам процес роботи руками, готування чи облаштування."],
+["F",2,"Я щедро ділюся речами й ресурсами."],
+["F",2,"Я легко пристосовуюся до різних побутових умов."],
+["F",3,"Мені незручно, коли звертають увагу на мою зовнішність чи тіло."],
+["F",3,"Гроші й матеріальні питання тривожать мене більше, ніж хотілося б."],
+["F",3,"Мені складно дбати про побут, і це викликає в мене почуття провини."],
+["F",3,"Мене зачіпають зауваження про мій одяг чи те, як я веду господарство."],
+["F",4,"Мені майже байдуже, що їсти й у що вдягатися."],
+["F",4,"Я легко миряюся з побутовими незручностями."],
+["F",4,"Я радо віддаю побут і матеріальні справи комусь іншому."],
+["F",4,"Гроші й речі мене мало цікавлять, аби було найнеобхідніше."],
+
+["E",1,"Мої емоції сильні, і я переживаю все дуже яскраво."],
+["E",1,"Мені важливо, щоб інші поділяли мій настрій."],
+["E",1,"Мій настрій визначає майже все, що я роблю."],
+["E",1,"Я відкрито показую почуття, навіть якщо це незручно іншим."],
+["E",2,"Я легко співпереживаю й підтримую інших емоційно."],
+["E",2,"Я вмію підняти настрій компанії."],
+["E",2,"Мені легко говорити про почуття — свої й чужі."],
+["E",2,"Я тонко відчуваю атмосферу й підлаштовуюся під неї."],
+["E",3,"Я соромлюся показувати свої почуття."],
+["E",3,"Мені важко зрозуміти, що я відчуваю, і ще важче це висловити."],
+["E",3,"Чужі сильні емоції мене бентежать, і я не знаю, як реагувати."],
+["E",3,"Мене ранить, коли мої почуття висміюють чи знецінюють."],
+["E",4,"Емоційні драми мене мало чіпають."],
+["E",4,"Поганий настрій у мене буває рідко й швидко минає."],
+["E",4,"Мені важко зрозуміти, навіщо так переживати через дрібниці."],
+["E",4,"Мене влаштовує, коли настрій створюють інші, а я просто долучаюся."]
+];
+
+const DESC={
+V1:"Ви ухвалюєте рішення самостійно й твердо стоїте на своєму. Вплив і самостійність для вас природні, а чужий тиск ви сприймаєте як виклик.",
+V2:"Ви впевнені в собі, але гнучкі: вмієте вести за собою, домовлятися й поважати чужі бажання. Воля для вас — інструмент співпраці.",
+V3:"Тут ваше найвразливіше місце: самооцінка й право на власну позицію. Вам потрібні повага, делікатність і можливість висловитися без тиску.",
+V4:"Ви не прагнете керувати й легко приймаєте розумні правила. Вам комфортно, коли рішення ухвалює хтось надійний.",
+L1:"У вас сформована власна картина світу, і ви впевнено нею ділитеся. Ваші висновки — опора, яку ви неохоче переглядаєте.",
+L2:"Ви любите міркувати, пояснювати й обговорювати ідеї. Думаєте гнучко й відкриті до чужих аргументів.",
+L3:"Тут ваше вразливе місце: інтелектуальна самооцінка. Вас ранить, коли знецінюють вашу думку, а сумніви в собі часто зайві.",
+L4:"Теорія вас мало цікавить: вам потрібен практичний висновок. Ви легко довіряєте знанням інших.",
+F1:"Матеріальний світ — ваша сильна сторона: гроші, побут, тіло, комфорт. У цих питаннях у вас свої тверді правила.",
+F2:"Ви працьовиті й практичні, із задоволенням робите щось руками й допомагаєте іншим у побуті. Ресурсами ділитеся щедро.",
+F3:"Тут ваше вразливе місце: тіло, зовнішність, гроші чи побут. Зауваження в цій сфері болять, а турбота про вас тут особливо цінна.",
+F4:"Матеріальне для вас другорядне: ви невибагливі й легко віддаєте побутові справи іншим.",
+E1:"Ваші емоції яскраві й визначальні. Ви живете почуттями й хочете, щоб оточення їх поділяло.",
+E2:"Ви емоційно чуйні й щедрі: легко співпереживаєте, підтримуєте й створюєте настрій для інших.",
+E3:"Тут ваше вразливе місце: вираження почуттів. Вам буває важко зрозуміти й показати емоції, тож потрібна безпечна атмосфера.",
+E4:"Емоції вас мало хитають: ви спокійні, рідко драматизуєте й легко підхоплюєте настрій інших."
+};
+
+// permutations of 4 functions
+function perms(a){if(a.length<2)return[a];return a.flatMap((x,i)=>perms([...a.slice(0,i),...a.slice(i+1)]).map(p=>[x,...p]))}
+const ALL=perms(FUNCS);
+
+function seeded(seed){return()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646}}
+const rnd=seeded(1357);
+const order=[...Q.keys()];
+for(let i=order.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[order[i],order[j]]=[order[j],order[i]]}
+
+const LABELS=["Зовсім не про мене","Скоріше ні","Частково","Скоріше так","Дуже про мене"];
+const KEY="psychosophy-uk-v1";
+let answers=new Array(Q.length).fill(null), idx=0;
+const $=id=>document.getElementById(id);
+function save(){try{localStorage.setItem(KEY,JSON.stringify({answers,idx}))}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&Array.isArray(s.answers)&&s.answers.length===Q.length)return s}catch(e){}return null}
+function clear(){try{localStorage.removeItem(KEY)}catch(e){}}
+function show(id){["intro","quiz","results"].forEach(s=>$(s).classList.toggle("hidden",s!==id));window.scrollTo(0,0)}
+
+function matrix(el,scores,best){
+  let h=`<div></div>`+[1,2,3,4].map(p=>`<div class="h">${p}</div>`).join("");
+  FUNCS.forEach(f=>{
+    h+=`<div class="fh">${F[f]}</div>`;
+    [1,2,3,4].forEach(p=>{
+      const on=best&&best[p-1]===f;
+      const o=scores?((scores[f][p]-4)/16*.55).toFixed(2):0;
+      h+=`<div class="c${on?" on":""}"><i style="--o:${o}"></i><span>${on?LETTER[f]:""}</span></div>`;
+    });
+  });
+  el.innerHTML=h;
+}
+
+function renderQ(){
+  const q=Q[order[idx]];
+  $("count").textContent=`${idx+1} / ${Q.length}`;
+  $("barFill").style.width=`${idx/Q.length*100}%`;
+  $("statement").textContent=q[2];
+  $("back").style.visibility=idx===0?"hidden":"visible";
+  $("scale").innerHTML=LABELS.map((l,i)=>`<button data-v="${i+1}" aria-pressed="${answers[order[idx]]===i+1}"><span class="dot" style="--n:${i+1}"></span>${l}<span class="key">${i+1}</span></button>`).join("");
+}
+function answer(v){
+  answers[order[idx]]=v;
+  if(idx<Q.length-1){idx++;save();renderQ()}else{save();results()}
+}
+$("scale").addEventListener("click",e=>{const b=e.target.closest("button");if(b)answer(+b.dataset.v)});
+document.addEventListener("keydown",e=>{
+  if($("quiz").classList.contains("hidden"))return;
+  if(/^[1-5]$/.test(e.key))answer(+e.key);
+  if(e.key==="Backspace"&&idx>0){e.preventDefault();idx--;save();renderQ()}
+});
+$("back").onclick=()=>{if(idx>0){idx--;save();renderQ()}};
+
+function results(){
+  const S={};FUNCS.forEach(f=>S[f]={1:0,2:0,3:0,4:0});
+  Q.forEach((q,i)=>S[q[0]][q[1]]+=answers[i]??3);
+  // fit of each permutation: sum of matching cells, normalised 0–100
+  const scored=ALL.map(p=>{
+    const s=p.reduce((t,f,i)=>t+S[f][i+1],0);
+    return{p,s,pct:Math.round((s-16)/64*100)};
+  }).sort((a,b)=>b.s-a.s);
+  const best=scored[0].p;
+  const code=best.map(f=>LETTER[f]).join("");
+
+  $("rCode").textContent=code;
+  $("rSummary").textContent=`Найсильніша функція — ${F[best[0]].toLowerCase()}, найвразливіша — ${F[best[2]].toLowerCase()}.`;
+  matrix($("resultMatrix"),S,best);
+  $("resultMatrix").setAttribute("aria-label",`Тип ${code}: ${best.map((f,i)=>`${i+1} ${F[f]}`).join(", ")}`);
+  $("positions").innerHTML=best.map((f,i)=>`<div class="pos"><div class="num">${i+1}</div><div><small>${POS[i+1]}</small><h3>${F[f]}</h3><p>${DESC[f+(i+1)]}</p></div></div>`).join("");
+
+  const gap=scored[0].s-scored[1].s;
+  const alt=scored[1].p.map(f=>LETTER[f]).join("");
+  $("rNote").textContent=gap<=3
+    ?`Тип ${alt} відповідає вашим відповідям майже так само добре. Порівняйте, яка функція у вас справді вразлива (третя позиція): це найнадійніший орієнтир.`
+    :`Тип ${code} помітно випереджає інші варіанти, але все одно перевірте себе описом третьої функції: якщо він не відгукується, подивіться альтернативи нижче.`;
+  $("alts").innerHTML=scored.slice(0,5).map(x=>`<li><b>${x.p.map(f=>LETTER[f]).join("")}</b><span class="muted">${x.pct}%</span></li>`).join("");
+  show("results");
+}
+
+function start(fresh){
+  if(fresh){answers=new Array(Q.length).fill(null);idx=0;clear()}
+  show("quiz");renderQ();
+}
+$("start").onclick=()=>start(true);
+$("resume").onclick=()=>start(false);
+$("restart").onclick=()=>{clear();answers=new Array(Q.length).fill(null);idx=0;$("resume").classList.add("hidden");show("intro")};
+
+matrix($("introMatrix"),null,null);
+const saved=load();
+if(saved&&saved.answers.some(a=>a!==null)){
+  answers=saved.answers;idx=Math.min(saved.idx,Q.length-1);
+  if(answers.every(a=>a!==null))results();
+  else $("resume").classList.remove("hidden");
+}
+</script>
+</body>
+</html>
+
+</body></html>
